@@ -6,18 +6,17 @@ int main()
     long int f1 = 2;
     long int f2;
 
-    while (n % f1)
+    while (f1 <= sqrt(n))
     {
-        if (f1 <= n)
+        if (n % f1 == 0)
         {
-            f1++;
+            f2 = n / f1;
+            printf("%lld = %lld * %lld\n", n, f2, f1);
+            return 0;
         }
-        else {
-            return (-1);
-        }
+        f1++;
     }
 
-    f2 = n / f1;
-    printf("%lld = %ld * %ld\n", n, f2, f1);
-    return (0);
+    printf("No factorization found for %lld\n", n);
+    return -1;
 }

@@ -10,29 +10,21 @@ def open_read_file(file_name):
     """
     with open(file_name, "r", encoding="utf-8") as file:
         lines = file.readlines()
-    num_to_factor = []
-    for i in lines:
-        num_to_factor.append(int(i))
-    return num_to_factor
+    return [int(line.strip()) for line in lines]
 
+def find_and_print_factors(n):
+    """Factor the given number n."""
+    for j in range(2, int(sqrt(n)) + 1):
+        if n % j == 0:
+            print(f"{n}={n // j}*{j}")
+            return
+    print(f"{n}=1*{n}")  # If no factors were found (n is prime)
 
-def find_and_times(n):
-    """factor each
-    n given
-    """
-    for j in range(1, n):
-        if n == ((n // j) * j):
-            print("{}={}*{}".format(n, (n // j), j))
-            break
-
-
-def fac_list(ls):
-    """factor each
-    num in ls
-    """
-    for i in ls:
-        find_and_times(i)
-
+def factorize_numbers(numbers):
+    """Factor each number in the list."""
+    for number in numbers:
+        find_and_print_factors(number)
 
 if len(argv) == 2:
-    fac_list(open_read_file(argv[1]))
+    numbers = open_read_file(argv[1])
+    factorize_numbers(numbers)

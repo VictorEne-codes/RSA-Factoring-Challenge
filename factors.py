@@ -5,13 +5,12 @@ import sys
 def factorize(num):
     """ Generate 2 factors for a given number"""
     factor1 = 2
-    while (num % factor1):
-        if (factor1 <= num):
-            factor1 += 1
-
-    factor2 = num // factor1
-    return (factor2, factor1)
-
+    while factor1 <= int(sqrt(num)):
+        if num % factor1 == 0:
+            factor2 = num // factor1
+            return (factor2, factor1)
+        factor1 += 1
+    return (1, num)
 
 if len(sys.argv) != 2:
     sys.exit(f"Wrong usage: {sys.argv[0]} <file_path>")

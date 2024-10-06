@@ -8,11 +8,10 @@ with open(argv[1]) as f:
         if num % 2 == 0:
             print("{}*2".format(num//2))
             continue
-        for i in range(3, num, 2):
+        for i in range(3, int(sqrt(num)) + 1, 2):
             if num % i == 0:
-                factor = num//i
-                for j in range(3, factor, 2):
-                    if factor % j == 0 or i % j == 0:
-                        break
+                factor = num // i
                 print("{}*{}".format(factor, i))
                 break
+        else:
+            print("1*{}".format(num))
