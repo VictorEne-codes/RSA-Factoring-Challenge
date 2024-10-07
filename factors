@@ -3,10 +3,11 @@ import sys
 import math
 
 def factorize(number):
-    for i in range(2, int(math.sqrt(number)) + 1):
+    # Start from the largest possible factor (number // 2) and go down to 2
+    for i in range(number // 2, 1, -1):
         if number % i == 0:
             return i, number // i
-    return None
+    return 1, number  # Fallback if no factors found, should not occur since n > 1
 
 def main():
     if len(sys.argv) != 2:
@@ -24,10 +25,8 @@ def main():
 
     for line in numbers:
         number = int(line.strip())
-        factors = factorize(number)
-        if factors:
-            p, q = factors
-            print(f"{number}={p}*{q}")
+        p, q = factorize(number)
+        print(f"{number}={p}*{q}")
 
 if __name__ == "__main__":
     main()
