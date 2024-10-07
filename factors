@@ -1,32 +1,36 @@
 #!/usr/bin/python3
-import sys
+from sys import argv
 import math
+"""Factorize as many numbers as possible into a product of 2 smaller nums"""
 
-def factorize(number):
-    # Start from the largest possible factor (number // 2) and go down to 2
-    for i in range(number // 2, 1, -1):
-        if number % i == 0:
-            return i, number // i
-    return 1, number  # Fallback if no factors found, should not occur since n > 1
 
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: factors <file>")
-        return
+def factory(num):
+    """gets the factors of a number"""
+    if num % 2 == 0:
+        i = 2
+        print("{}={}*{}".format(num, int(num//i), i))
+    else:
+        sq = int(math.sqrt(num)) + 1
+        for i in range(3, sq, +2):
+            if num % i == 0:
+                print("{}={}*{}".format(num, int(num//i), i))
+                return
+            if num % (sq + i) == 0:
+                print("{}={}*{}".format(num, sq + i, int(num//(sq + i))))
+                return
+            if num % (sq - i) == 0:
+                print("{}={}*{}".format(num, sq - 1, int(num//(sq - i))))
+                return
 
-    filename = sys.argv[1]
 
-    try:
-        with open(filename, 'r') as file:
-            numbers = file.readlines()
-    except FileNotFoundError:
-        print(f"Error: File {filename} not found")
-        return
+def factors(filename):
+    """read_file and prints them out"""
 
-    for line in numbers:
-        number = int(line.strip())
-        p, q = factorize(number)
-        print(f"{number}={p}*{q}")
+    with open(filename, encoding="utf-8") as my_file:
+        for i in my_file.readlines():
+            n = int(i)
+            result = factory(n)
+
 
 if __name__ == "__main__":
-    main()
+    factors(argv[1])
